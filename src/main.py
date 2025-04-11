@@ -5,7 +5,3 @@ from routes.providers import router as providers_router
 app = FastAPI()
 app.include_router(clients_router)
 app.include_router(providers_router)
-
-# f = select(Providers)
-
-# print(session.execute(f).scalars().all(), "FDF")

@@ -1,11 +1,10 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
-Base = declarative_base()
+from sqlmodel import Field, SQLModel
+from typing import Optional
 
 
-class Providers(Base):
-    __tablename__ = "Providers"
-    provider_id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(45), nullable=False)
-    lastname = Column(String(45), nullable=False)
-    phone = Column(String(45), nullable=False)
+class Providers(SQLModel, table=True):
+    provider_id: Optional[int] = Field(
+        default=None, primary_key=True)
+    name: str
+    lastname: str
+    phone: str
