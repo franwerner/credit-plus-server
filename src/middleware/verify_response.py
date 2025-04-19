@@ -1,7 +1,7 @@
 from json import loads
 from starlette.concurrency import iterate_in_threadpool
 from fastapi import Request
-from utils.app_response import AppErrorResponse
+from common.utils.app_response import AppErrorResponse
 from config.env import config
 
 # Solo se ejecuta si el entorno es de desarrollo

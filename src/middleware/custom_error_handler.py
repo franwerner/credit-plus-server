@@ -1,5 +1,5 @@
 from fastapi import Request
-from utils.app_response import AppErrorResponse
+from common.utils.app_response import AppErrorResponse
 
 
 def custom_error_handler(app):

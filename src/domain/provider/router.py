@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from models.provider import ProviderInsert
+from common.interfaces.router_config import RouterConfing
+from models.provider.schema import ProviderInsert
 from .controller.get import get_provider, get_providers
 from .controller.create import create_provider
 from .controller.remove import remove_provider
@@ -24,3 +25,10 @@ async def post(provider: ProviderInsert):
 @router.delete("/{provider_id}")
 async def delete(provider_id: int):
     return await remove_provider(provider_id=provider_id)
+
+router_provider: RouterConfing = {
+    "path": "/provider",
+    "router": router,
+}
+
+# "tags": ["provider"],

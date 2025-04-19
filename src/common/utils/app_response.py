@@ -3,7 +3,12 @@ from fastapi.encoders import jsonable_encoder
 
 
 class AppSuccessResponse():
-    def __init__(self, message: str = "success", http_status: int = 202, data: any = None):
+    def __init__(
+        self,
+        message: str = "success",
+            http_status: int = 202,
+            data: any = None
+    ):
         self.message = message
         self.data = data
         self.http_status = http_status
@@ -19,7 +24,13 @@ class AppSuccessResponse():
 
 
 class AppErrorResponse(Exception, AppSuccessResponse):
-    def __init__(self, message: str = "failed", code: str = "", http_status: int = 500, data: any = None):
+    def __init__(
+            self,
+            message: str = "failed",
+            code: str = "",
+            http_status: int = 500,
+            data: any = None
+    ):
         Exception.__init__(self, message)
         AppSuccessResponse.__init__(self, message, http_status, data)
         self.code = code

@@ -14,3 +14,9 @@ class ProviderInsert(SQLModel):
     name: str
     lastname: str
     phone: str
+
+
+class ProviderUpdate(SQLModel):
+    name: Optional[str] = None
+    lastname: Optional[str] = None
+    phone: Optional[str] = None

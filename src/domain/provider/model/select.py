@@ -1,7 +1,7 @@
 from sqlmodel import select, or_
 from config.database import db_session
-from models.provider import Provider
-from utils.app_response import AppErrorResponse, AppSuccessResponse
+from models.provider.schema import Provider
+from utils.app_response import AppErrorResponse
 
 
 async def select_providers(page: int = None, name_lastname: int = None):
@@ -26,9 +26,7 @@ async def select_providers(page: int = None, name_lastname: int = None):
             message="Proveedores no encontrados",
             code="PROVIDERS_NOT_FOUND"
         )
-    return AppSuccessResponse(
-        data=res
-    ).to_response()
+    return res
 
 
 async def select_provider(provider_id: int):
@@ -42,6 +40,4 @@ async def select_provider(provider_id: int):
             message="Proveedor no encontrado",
             code="PROVIDER_NOT_FOUND"
         )
-    return AppSuccessResponse(
-        data=res
-    ).to_response()
+    return res
