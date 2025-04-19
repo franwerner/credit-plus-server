@@ -1,17 +1,11 @@
 from fastapi import FastAPI
-from domain.provider.router import router_provider
-from common.interfaces.router_config import RouterConfing
-from typing import List
+from domain.provider.router import router as router_provider
 
-routes: List[RouterConfing] = [
+routes = [
     router_provider
 ]
 
 
-def create_routes(app: FastAPI) -> None:
+def create_routes(app: FastAPI):
     for route in routes:
-        app.include_router(
-            route.get("router"),
-            tags=route.get("tags"),
-            prefix=route.get("prefix"),
-        )
+        app.include_router(route)

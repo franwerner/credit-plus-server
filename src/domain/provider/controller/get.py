@@ -1,9 +1,10 @@
-from services.providers.select import select_providers, select_provider
-from utils.app_response import AppSuccessResponse
+from common.utils.app_response import AppSuccessResponse
+from domain.provider.services.get import service_get_providers, service_get_provider
 
 
-async def get_providers(name_lastname: str = None, page: int = 0):
-    res = await select_providers(page=page, name_lastname=name_lastname)
+async def controller_get_providers(name_lastname: str = None, page: int = 0):
+    res = await service_get_providers(page=page, name_lastname=name_lastname)
+    print(res)
     return AppSuccessResponse(
         http_status=200,
         message="Proveedores obtenidos correctamente.",
@@ -11,8 +12,8 @@ async def get_providers(name_lastname: str = None, page: int = 0):
     ).to_response()
 
 
-async def get_provider(provider_id: int):
-    res = await select_provider(provider_id)
+async def controller_get_provider(provider_id: int):
+    res = await service_get_provider(provider_id)
     return AppSuccessResponse(
         http_status=200,
         message="Proveedor obtenido correctamente.",

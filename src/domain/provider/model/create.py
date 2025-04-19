@@ -1,8 +1,8 @@
+from .schema import ProviderInsert, Provider
 from config.database import db_session
-from models.provider.schema import ProviderInsert, Provider
 
 
-async def insert_provider(provider: ProviderInsert):
+async def model_create_provider(provider: ProviderInsert):
     async with db_session() as session:
         provider_schema = Provider(**provider.model_dump())
         session.add(provider_schema)
