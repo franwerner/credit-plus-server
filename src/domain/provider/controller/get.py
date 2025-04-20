@@ -4,7 +4,6 @@ from domain.provider.services.get import service_get_providers, service_get_prov
 
 async def controller_get_providers(name_lastname: str = None, page: int = 0):
     res = await service_get_providers(page=page, name_lastname=name_lastname)
-    print(res)
     return AppSuccessResponse(
         http_status=200,
         message="Proveedores obtenidos correctamente.",

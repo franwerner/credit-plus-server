@@ -36,11 +36,13 @@ class AppErrorResponse(Exception, AppSuccessResponse):
         self.code = code
 
     def to_response(self):
+        content = {
+            "message": self.message,
+            "code": self.code,
+        }
+        if self.data is not None:
+            content["data"] = self.data
         return JSONResponse(
-            content={
-                "message": self.message,
-                "data": self.data,
-                "code": self.code
-            },
+            content=content,
             status_code=self.http_status
         )

@@ -1,6 +1,7 @@
 from .schema import Provider
 from sqlmodel import select, or_
 from config.database import db_session
+from common.utils.db_error_handler import DBErrorHandler
 
 
 async def model_get_providers(page: int = None, name_lastname: int = None):
@@ -17,8 +18,8 @@ async def model_get_providers(page: int = None, name_lastname: int = None):
                 Provider.lastname.like(name_lastname + '%')
             )
         )
-
-    return (await db_session().exec(query)).all()
+    async with DBErrorHandler() as session:
+        return (await session.exec(query)).all()
 
 
 async def model_get_provider(provider_id: int):
