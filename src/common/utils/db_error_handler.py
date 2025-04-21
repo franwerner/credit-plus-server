@@ -13,24 +13,20 @@ class DBConfigError(TypedDict):
 generic_message = {
     "http_status": 500,
     "message": "Error desconocido en la base de datos",
-    "code": "DB_ERROR"
 }
 
 errors_messages: dict[str, DBConfigError] = {
     OperationalError: {
         "http_status": 500,
         "message": "Error en la base de datos",
-        "code": "OPERATIONAL_ERROR"
     },
     IntegrityError: {
         "http_status": 400,
         "message": "Error de integridad de datos, violación de restricciones",
-        "code": "INTEGRITY_ERROR"
     },
     NoResultFound: {
         "http_status": 403,
         "message": "No se encontraron resultados",
-        "code": "NO_RESULT_FOUND"
     }
 }
 
@@ -46,7 +42,7 @@ class DBErrorHandler():
         return db_session()
 
     async def __aexit__(self, exc_type, exc_value, traceback):
-        print(exc_type, exc_value)
+
         if not exc_type:
             return
 
@@ -59,9 +55,10 @@ class DBErrorHandler():
             self.extend_messages.get(exc_type) or
             get_error_config.get("message")
         )
+        code = getattr(exc_type, "__name__", "err")
 
         raise AppErrorResponse(
             http_status=get_error_config.get("http_status"),
             message=message,
-            code=get_error_config.get("code")
+            code=f"DB_{code}"
         )

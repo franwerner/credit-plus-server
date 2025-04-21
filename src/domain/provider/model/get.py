@@ -1,15 +1,14 @@
 from .schema import Provider
 from sqlmodel import select, or_
-from config.database import db_session
 from common.utils.db_error_handler import DBErrorHandler
 
 
 async def model_get_providers(page: int = None, name_lastname: int = None):
-    page_size = 4
-    query = select(Provider).limit(page_size)
+    page_limit = 15
+    query = select(Provider).limit(page_limit)
 
     if page is not None:
-        query = query.offset(page * page_size)
+        query = query.offset(page * page_limit)
 
     if name_lastname is not None:
         query = query.where(
@@ -23,6 +22,7 @@ async def model_get_providers(page: int = None, name_lastname: int = None):
 
 
 async def model_get_provider(provider_id: int):
-    return (await db_session().exec(
-        select(Provider).where(Provider.provider_id == provider_id)
-    )).first()
+    async with DBErrorHandler() as session:
+        return (await session.exec(
+            select(Provider).where(Provider.provider_id == provider_id)
+        )).first()

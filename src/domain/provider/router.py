@@ -5,7 +5,7 @@ from domain.provider.controller.create import controller_create_provider
 from domain.provider.controller.delete import controller_remove_provider
 from domain.provider.controller.update import controller_provider_update
 
-router = APIRouter(prefix="/providers", tags=["Provider"])
+router = APIRouter(prefix="/providers", tags=["Providers"])
 
 
 @router.get("/")
