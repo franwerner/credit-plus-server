@@ -3,12 +3,13 @@ from sqlmodel import select, or_
 from common.utils.db_error_handler import DBErrorHandler
 
 
-async def model_get_providers(page: int = None, name_lastname: int = None):
+async def model_get_providers(page: int = 0, name_lastname: int = None):
     page_limit = 15
-    query = select(Provider).limit(page_limit)
-
-    if page is not None:
-        query = query.offset(page * page_limit)
+    query = (
+        select(Provider)
+        .limit(page_limit)
+        .offset(page * page_limit)
+    )
 
     if name_lastname is not None:
         query = query.where(

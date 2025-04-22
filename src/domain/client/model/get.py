@@ -10,12 +10,11 @@ async def model_get_client(client_id: int):
         return res
 
 
-async def model_get_clients(page: int, name_lastname: str):
+async def model_get_clients(page: int = 0, name_lastname: str = None):
     page_limit = 15
-    query = select(Client).limit(page_limit)
-
-    if page is not None:
-        query = query.offset(page * page_limit)
+    query = (select(Client)
+             .limit(page_limit)
+             .offset(page * page_limit))
 
     if name_lastname is not None:
         query = query.where(

@@ -2,11 +2,11 @@ from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 
 
-class AppSuccessResponse():
+class AppSuccessResponse:
     def __init__(
-        self,
-        message: str = "success",
-            http_status: int = 202,
+            self,
+            message: str = "success",
+            http_status: int = 200,
             data: any = None
     ):
         self.message = message
@@ -14,11 +14,14 @@ class AppSuccessResponse():
         self.http_status = http_status
 
     def to_response(self):
+        content = {
+            "message": self.message,
+        }
+        print(self.data, "asdadasd")
+        if self.data:
+            content["data"] = jsonable_encoder(self.data)
         return JSONResponse(
-            content={
-                "message": self.message,
-                "data": jsonable_encoder(self.data)
-            },
+            content=content,
             status_code=self.http_status
         )
 
@@ -40,7 +43,7 @@ class AppErrorResponse(Exception, AppSuccessResponse):
             "message": self.message,
             "code": self.code,
         }
-        if self.data is not None:
+        if self.data:
             content["data"] = self.data
         return JSONResponse(
             content=content,

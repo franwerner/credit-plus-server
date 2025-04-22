@@ -8,7 +8,7 @@ err_messages = {
 }
 
 
-async def model_update_provider(provider_data: ProviderUpdate, provider_id: int):
+async def model_update_provider(provider_id: int, provider_data: ProviderUpdate):
     async with DBErrorHandler(err_messages) as _, _ as session:
         statement = select(Provider).where(Provider.provider_id == provider_id)
         update_data = provider_data.model_dump(exclude_unset=True)
