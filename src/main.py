@@ -7,3 +7,5 @@ app = FastAPI()
 create_routes(app)
 custom_error_handler(app)
 all_excepction_handler(app)
+
+"FF"
