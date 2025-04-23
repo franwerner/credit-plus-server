@@ -9,7 +9,7 @@ class ClientController:
         data = await ClientService.update_client(client_id, data)
         return AppSuccessResponse(
             data=data,
-        )
+        ).to_response()
 
     @staticmethod
     async def create_client(data: ClientInsert):
@@ -17,7 +17,7 @@ class ClientController:
         return AppSuccessResponse(
             data=res,
             http_status=201
-        )
+        ).to_response()
 
     @staticmethod
     async def delete_client(client_id: int):
@@ -27,8 +27,8 @@ class ClientController:
         ).to_response()
 
     @staticmethod
-    async def get_clients(page: int = 0, name_lastname: str = None):
-        res = await ClientService.get_clients(page, name_lastname)
+    async def get_clients(page: int = 0, name_lastname: str = None, provider_id: int = None):
+        res = await ClientService.get_clients(page, name_lastname, provider_id)
         return AppSuccessResponse(
             data=res,
         ).to_response()

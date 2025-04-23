@@ -17,7 +17,7 @@ class AppSuccessResponse:
         content = {
             "message": self.message,
         }
-        print(self.data, "asdadasd")
+        print(content)
         if self.data:
             content["data"] = jsonable_encoder(self.data)
         return JSONResponse(

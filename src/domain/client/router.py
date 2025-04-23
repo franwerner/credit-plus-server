@@ -12,8 +12,8 @@ async def get(client_id: int):
 
 
 @router.get("/")
-async def gets(page: int = 0, name_lastname: str = None):
-    return await ClientController.get_clients(page, name_lastname)
+async def gets(page: int = 0, name_lastname: str = None, provider_id: int = None):
+    return await ClientController.get_clients(page, name_lastname, provider_id)
 
 
 @router.post("/")

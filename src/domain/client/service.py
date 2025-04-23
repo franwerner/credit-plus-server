@@ -28,8 +28,8 @@ class ClientService:
         return res
 
     @staticmethod
-    async def get_clients(page: int = 0, name_lastname: str = None):
-        res = await get.model_get_clients(page, name_lastname)
+    async def get_clients(page: int = 0, name_lastname: str = None, provider_id: int = None):
+        res = await get.model_get_clients(page, name_lastname, provider_id)
         if not res:
             raise AppErrorResponse(
                 message="No hay mas clientes",

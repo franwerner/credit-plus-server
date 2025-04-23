@@ -33,27 +33,27 @@ errors_messages: dict[str, DBConfigError] = {
 
 class DBErrorHandler():
     def __init__(
-        self,
-        extend_messages: dict[str, str] = None
+            self,
+            extend_messages: dict[str, str] = None
     ):
         self.extend_messages = extend_messages or {}
 
     async def __aenter__(self):
         return db_session()
 
-    async def __aexit__(self, exc_type, exc_value, traceback):
-
+    async def __aexit__(self, exc_type, exc_value: IntegrityError, traceback):
+        print(exc_value)
         if not exc_type:
             return
 
         get_error_config = (
-            errors_messages.get(exc_type) or
-            generic_message
+                errors_messages.get(exc_type) or
+                generic_message
         )
 
         message = (
-            self.extend_messages.get(exc_type) or
-            get_error_config.get("message")
+                self.extend_messages.get(exc_type) or
+                get_error_config.get("message")
         )
         code = getattr(exc_type, "__name__", "err")
 

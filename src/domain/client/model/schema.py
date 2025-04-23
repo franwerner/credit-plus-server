@@ -1,4 +1,3 @@
-
 from sqlmodel import Field, SQLModel, UniqueConstraint
 from typing import Optional
 
@@ -6,11 +5,10 @@ provider_fk = Field(foreign_key="provider.provider_id")
 
 
 class Client(SQLModel, table=True):
-
     __table_args__ = (
         UniqueConstraint(
-            "name", "lastname",
-            name="client_name_lastname_unique"
+            "name", "lastname", "provider_fk",
+            name="unique_client_provider"
         ),
     )
 
