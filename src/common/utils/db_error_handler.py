@@ -1,5 +1,5 @@
 from typing import TypedDict
-from sqlalchemy.exc import OperationalError, IntegrityError, NoResultFound
+from sqlalchemy.exc import OperationalError, IntegrityError, NoResultFound, DatabaseError
 from config.database import db_session
 from common.utils.app_response import AppErrorResponse
 
@@ -41,24 +41,5 @@ class DBErrorHandler():
     async def __aenter__(self):
         return db_session()
 
-    async def __aexit__(self, exc_type, exc_value: IntegrityError, traceback):
-        print(exc_value)
-        if not exc_type:
-            return
-
-        get_error_config = (
-                errors_messages.get(exc_type) or
-                generic_message
-        )
-
-        message = (
-                self.extend_messages.get(exc_type) or
-                get_error_config.get("message")
-        )
-        code = getattr(exc_type, "__name__", "err")
-
-        raise AppErrorResponse(
-            http_status=get_error_config.get("http_status"),
-            message=message,
-            code=f"DB_{code}"
-        )
+    async def __aexit__(self, exc_type, exc_value, traceback):
+        return

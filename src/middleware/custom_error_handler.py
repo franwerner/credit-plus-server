@@ -1,8 +1,0 @@
-from fastapi import Request, FastAPI
-from common.utils.app_response import AppErrorResponse
-
-
-def custom_error_handler(app: FastAPI):
-    @app.exception_handler(AppErrorResponse)
-    async def internal(request: Request, exc: AppErrorResponse):  # pylint: disable=unused-argument
-        return exc.to_response()

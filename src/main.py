@@ -1,11 +1,8 @@
-import datetime
-
 from fastapi import FastAPI
+
+from common.custom_error_handler.create_error_handlers import create_error_handlers
 from config.router import create_routes
-from middleware.custom_error_handler import custom_error_handler
-from middleware.all_excepction_handler import all_excepction_handler
 
 app = FastAPI()
 create_routes(app)
-custom_error_handler(app)
-all_excepction_handler(app)
+create_error_handlers(app)
