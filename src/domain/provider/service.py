@@ -22,7 +22,7 @@ class ProviderService:
         if not res:
             raise AppErrorResponse(
                 http_status=404,
-                message="El Proveedor con la ID:{} no encontrado".format(provider_id),
+                message="Proveedor no encontrado",
                 code="PROVIDER_NOT_FOUND"
             )
         return res

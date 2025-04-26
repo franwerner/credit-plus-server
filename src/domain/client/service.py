@@ -21,18 +21,18 @@ class ClientService:
         res = await get.model_get_client(client_id)
         if not res:
             raise AppErrorResponse(
-                message="El cliente con la ID:{} no encontrado".format(client_id),
+                message="No se encontro el ciente.",
                 http_status=404,
                 code="CLIENT_NOT_FOUND"
             )
         return res
 
     @staticmethod
-    async def get_clients(page: int = 0, name_lastname: str = None, provider_id: int = None):
+    async def get_clients_by_provider(page: int, provider_id: int, name_lastname: str = None):
         res = await get.model_get_clients(page, name_lastname, provider_id)
         if not res:
             raise AppErrorResponse(
-                message="No hay mas clientes",
+                message="No se encontraron clientes.",
                 http_status=404,
                 code="CLIENTS_NOT_FOUND"
             )

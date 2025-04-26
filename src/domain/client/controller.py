@@ -28,7 +28,7 @@ class ClientController:
 
     @staticmethod
     async def get_clients(page: int = 0, name_lastname: str = None, provider_id: int = None):
-        res = await ClientService.get_clients(page, name_lastname, provider_id)
+        res = await ClientService.get_clients_by_provider(page, provider_id, name_lastname)
         return AppSuccessResponse(
             data=res,
         ).to_response()

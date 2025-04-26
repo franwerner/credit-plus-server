@@ -1,5 +1,11 @@
 from typing import Optional
-from sqlmodel import Field, SQLModel, UniqueConstraint, String, Column
+from sqlmodel import Field, SQLModel, UniqueConstraint, String, Column, Enum
+
+
+class Role(str, Enum):
+    admin = "admin"
+    loan = "loan"
+    investor = "investor"
 
 
 class Provider(SQLModel, table=True):
@@ -13,6 +19,7 @@ class Provider(SQLModel, table=True):
     name: str = Field(max_length=45, sa_column=Column(String(45)))
     lastname: str = Field(max_length=45, sa_column=Column(String(45)))
     phone: Optional[str] = None
+    role: Optional[str] = Field(sa_column=Column(Role), default=Role.loan)
 
     class Config:
         validate_assignment = True
