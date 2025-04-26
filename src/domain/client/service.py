@@ -1,11 +1,11 @@
 from common.utils.app_response import AppErrorResponse
-from domain.client.model.schema import ClientInsert, ClientUpdate
+from domain.client.model.schema import Client, ClientUpdate
 from domain.client.model import update, get, create, delete
 
 
 class ClientService:
     @staticmethod
-    async def create_client(data: ClientInsert):
+    async def create_client(data: Client):
         return await create.model_create_client(data)
 
     @staticmethod

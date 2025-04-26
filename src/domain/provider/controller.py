@@ -1,4 +1,4 @@
-from .model.schema import ProviderUpdate, ProviderInsert
+from .model.schema import ProviderUpdate, Provider
 from .service import ProviderService
 from common.utils.app_response import AppSuccessResponse
 
@@ -20,7 +20,7 @@ class ProviderController:
         ).to_response()
 
     @staticmethod
-    async def create_provider(data: ProviderInsert):
+    async def create_provider(data: Provider):
         res = await ProviderService.create_provider(data)
         return AppSuccessResponse(
             data=res,

@@ -1,11 +1,11 @@
 from domain.provider.model import create, get, update, delete
 from common.utils.app_response import AppErrorResponse
-from domain.provider.model.schema import ProviderInsert, ProviderUpdate
+from domain.provider.model.schema import Provider, ProviderUpdate
 
 
 class ProviderService:
     @staticmethod
-    async def create_provider(data: ProviderInsert):
+    async def create_provider(data: Provider):
         return await create.model_create_provider(data)
 
     @staticmethod

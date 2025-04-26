@@ -1,4 +1,4 @@
-from domain.client.model.schema import ClientUpdate, ClientInsert
+from domain.client.model.schema import ClientUpdate, Client
 from .service import ClientService
 from common.utils.app_response import AppSuccessResponse
 
@@ -12,7 +12,7 @@ class ClientController:
         ).to_response()
 
     @staticmethod
-    async def create_client(data: ClientInsert):
+    async def create_client(data: Client):
         res = await ClientService.create_client(data)
         return AppSuccessResponse(
             data=res,

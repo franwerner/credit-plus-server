@@ -6,3 +6,4 @@ from config.router import create_routes
 app = FastAPI()
 create_routes(app)
 create_error_handlers(app)
+print("asdasd")

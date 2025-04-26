@@ -1,7 +1,8 @@
-from sqlmodel import Field, SQLModel, UniqueConstraint
+from sqlmodel import Field, SQLModel, UniqueConstraint, Column, String
 from typing import Optional
+from sqlalchemy.schema import CreateTable
 
-provider_fk = Field(foreign_key="provider.provider_id")
+from config.database import engine
 
 
 class Client(SQLModel, table=True):
@@ -13,17 +14,13 @@ class Client(SQLModel, table=True):
     )
 
     client_id: Optional[int] = Field(primary_key=True)
-    name: str
-    lastname: str
-    phone: str
-    provider_fk: Optional[int] = provider_fk
+    name: str = Field(max_length=45)
+    lastname: str = Field(max_length=45)
+    phone: Optional[int]
+    provider_fk: int = Field(foreign_key="provider.provider_id")
 
 
-class ClientInsert(SQLModel):
-    name: str
-    lastname: str
-    phone: Optional[str]
-    provider_fk: int = provider_fk
+print(str(CreateTable(Client.__table__).compile(dialect=engine.dialect)))
 
 
 class ClientUpdate(SQLModel):

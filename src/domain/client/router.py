@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from .controller import ClientController
-from .model.schema import ClientUpdate, ClientInsert
+from .model.schema import ClientUpdate, Client
 
 router = APIRouter(prefix="/clients", tags=["Clients"])
 
@@ -17,7 +17,7 @@ async def gets(page: int = 0, name_lastname: str = None, provider_id: int = None
 
 
 @router.post("/")
-async def post(body: ClientInsert):
+async def post(body: Client):
     return await ClientController.create_client(body)
 
 

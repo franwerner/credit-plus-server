@@ -1,15 +1,10 @@
 from sqlmodel import select
 from .schema import ProviderUpdate, Provider
-from common.utils.db_error_handler import DBErrorHandler
-from sqlalchemy.exc import NoResultFound
-
-err_messages = {
-    NoResultFound: "El proveedor que intentas actualizar, no existe."
-}
+from config.database import get_db_session
 
 
 async def model_update_provider(provider_id: int, provider_data: ProviderUpdate):
-    async with DBErrorHandler(err_messages) as _, _ as session:
+    async with get_db_session() as _, _ as session:
         statement = select(Provider).where(Provider.provider_id == provider_id)
         update_data = provider_data.model_dump(exclude_unset=True)
         provider = (await session.exec(statement)).one()

@@ -1,14 +1,9 @@
-from .schema import ProviderInsert, Provider
-from common.utils.db_error_handler import DBErrorHandler
-from sqlalchemy.exc import IntegrityError
-
-error_messages = {
-    IntegrityError: "Ese proveedor ya se encuentra existente."
-}
+from config.database import get_db_session
+from .schema import Provider
 
 
-async def model_create_provider(provider: ProviderInsert):
-    async with DBErrorHandler(error_messages) as _, _ as session:
+async def model_create_provider(provider: Provider):
+    async with get_db_session() as _, _ as session:
         provider_schema = Provider(**provider.model_dump())
         session.add(provider_schema)
         await session.commit()

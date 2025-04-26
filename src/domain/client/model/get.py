@@ -1,10 +1,11 @@
 from sqlmodel import select, or_
-from common.utils.db_error_handler import DBErrorHandler
+from config.database import get_db_session
+
 from .schema import Client
 
 
 async def model_get_client(client_id: int):
-    async with DBErrorHandler() as session:
+    async with get_db_session() as session:
         query = select(Client).where(Client.client_id == client_id)
         return (await session.exec(query)).first()
 
@@ -24,5 +25,5 @@ async def model_get_clients(page: int = 0, name_lastname: str = None, provider_i
                 Client.lastname.like(name_lastname + '%')
             )
         )
-    async with DBErrorHandler() as session:
+    async with get_db_session() as session:
         return (await session.exec(query)).all()

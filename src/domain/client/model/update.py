@@ -1,10 +1,10 @@
-from .schema import ClientUpdate, Client
-from common.utils.db_error_handler import DBErrorHandler
 from sqlmodel import select
+from config.database import get_db_session
+from .schema import ClientUpdate, Client
 
 
 async def model_update_client(client_id: int, client_data: ClientUpdate):
-    async with DBErrorHandler() as _, _ as session:
+    async with get_db_session() as _, _ as session:
         query = select(Client).where(Client.client_id == client_id)
         update_data = client_data.model_dump(exclude_unset=True)
         client = (await session.exec(query)).one()

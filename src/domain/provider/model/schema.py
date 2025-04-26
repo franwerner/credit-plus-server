@@ -1,6 +1,4 @@
 from typing import Optional
-
-from pydantic import BaseModel, constr
 from sqlmodel import Field, SQLModel, UniqueConstraint, String, Column
 
 
@@ -18,11 +16,6 @@ class Provider(SQLModel, table=True):
 
     class Config:
         validate_assignment = True
-
-
-class ProviderInsert(BaseModel):
-    name: constr(max_length=2)
-    lastname: str
 
 
 class ProviderUpdate(SQLModel):
