@@ -1,6 +1,6 @@
 from typing import TypedDict
 from sqlalchemy.exc import OperationalError, IntegrityError, NoResultFound, DatabaseError
-from config.database import db_session
+from config.database import get_db_session
 from common.utils.app_response import AppErrorResponse
 
 
@@ -39,7 +39,7 @@ class DBErrorHandler():
         self.extend_messages = extend_messages or {}
 
     async def __aenter__(self):
-        return db_session()
+        return get_db_session()
 
     async def __aexit__(self, exc_type, exc_value, traceback):
         return
